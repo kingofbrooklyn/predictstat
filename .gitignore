@@ -1,0 +1,12 @@
+account/__pycache__
+account/migrations/__pycache__
+account/templatetags/__pycache__
+home/__pycache__
+home/migrations/__pycache__
+home/templatetags/__pycache__
+home/static/home/bootstrap
+home/static/home/font_awesome
+home/static/home/jquery
+media/
+db.sqlite3
+predictstat/__pycache__

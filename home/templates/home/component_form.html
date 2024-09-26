@@ -1,0 +1,21 @@
+<!-- Form -->
+<fieldset disabled="disabled">
+    {% include 'home/create_form.html' with form=create_form as_modal=False %}
+</fieldset>
+
+<hr>
+
+<!-- Update -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target='#update-{{component.key}}-{{component.id}}-modal'>
+    Update
+</button>
+{% include 'home/update_form.html' with component=component form=update_form as_modal=True %}
+
+<!-- Duplicate -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#duplicate-{{component.key}}-{{component.id}}-modal">
+    Duplicate
+</button>
+{% include 'home/duplicate_form.html' with component=component form=duplicate_form as_modal=True %}
+
+<!-- Delete -->
+{% include 'home/delete_form.html' with component=component %}

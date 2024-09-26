@@ -1,0 +1,22 @@
+<div id='{{ modal_id }}' class="modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ form_title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="modal-form" method="POST" enctype="multipart/form-data" action='{% url form_action %}'>
+            <table>
+              {% csrf_token %}
+              {{ form.as_table }}
+            </table>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

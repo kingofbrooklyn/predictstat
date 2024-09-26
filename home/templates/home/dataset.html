@@ -1,0 +1,41 @@
+<div>
+    <!-- db summary -->
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Rows</th>
+                <th>Columns</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ dataset.num_rows }}</td>
+                <td>{{ dataset.num_columns }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Data -->
+    <div class="auto-size">
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    {% for name in dataset.df.columns %}
+                        <th col="{{forloop.counter0}}">{{ name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for data_row in dataset.df.values %}
+                    <tr>
+                        {% for data in data_row %}
+                            <td col="{{forloop.counter0}}">{{ data }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

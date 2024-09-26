@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<!-- Modal header, display form title -->
+<div class="modal-header">
+    <!--Header-->
+    <h1>Register an Account</h1>
+    <!-- Cancel button -->
+    <button class="close" type="submit" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!--Form logic -->
+<div class="form-group">
+    <form method="POST" enctype='multipart/form-data' action='{% url "account-register" %}'>
+        <!--Form-->
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+{% endblock content %}

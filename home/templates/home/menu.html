@@ -1,0 +1,75 @@
+<div id="menu" class="col-2">
+    <div class="content-section list-group">
+
+        <nav class="navbar bg-steel">
+            <div class="container-fluid">
+                <div class="navbar-brand mb-0 h1">
+                    Menu
+                </div>
+            </div>
+        </nav>
+
+        <!-- Workspaces -->
+        <a id="{{Workspace.key}}-show-dropdown" data-bs-toggle="collapse" href="#{{Workspace.key}}-dropdown" class="list-group-item list-group-item-action">{{Workspace.name_plural}}</a>
+        
+        <div class="collapse" id="workspace-dropdown">
+            <div class="card card-body">
+                <!-- Create workspace -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{Workspace.key}}-modal">
+                    Create {{Workspace.name_singular}}
+                </button>
+            </div>
+        </div>
+        {% include 'home/create_form.html' with component=Workspace as_modal=True form=create_workspace_form %}
+
+        <!-- Datasets -->
+        <a id="{{Dataset.key}}-show-dropdown" data-bs-toggle="collapse" href="#{{Dataset.key}}-dropdown" class="list-group-item list-group-item-action">{{Dataset.name_plural}}</a>
+        
+        <div class="collapse" id="{{Dataset.key}}-dropdown">
+            <div class="card card-body">
+                <!-- DatasetUploads -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{DatasetUpload.key}}-modal">
+                    {{DatasetUpload.name_singular}}
+                </button>
+            </div>
+        </div>
+        {% include 'home/create_form.html' with component=DatasetUpload as_modal=True form=create_datasetupload_form %}
+
+        <!-- Regressions -->
+        <a id="regressions-show-dropdown" data-bs-toggle="collapse" href="#regressions-dropdown" class="list-group-item list-group-item-action">Regressions</a>
+        
+        <div class="collapse" id="regressions-dropdown">
+            <div class="card card-body">
+                <!-- Create ordinary least squares -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{OrdinaryLeastSquares.key}}-modal">
+                    Create {{OrdinaryLeastSquares.name_singular}}
+                </button>
+                
+                <!-- Create ridge regression -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{RidgeRegression.key}}-modal">
+                    Create {{RidgeRegression.name_singular}}
+                </button>
+            </div>
+        </div>
+        {% include 'home/create_form.html' with component=OrdinaryLeastSquares as_modal=True form=create_ordinaryleastsquares_form %}
+        {% include 'home/create_form.html' with component=RidgeRegression as_modal=True form=create_ridgeregression_form %}
+
+        <!-- Visualizations -->
+        <a id="visualizations-show-dropdown" data-bs-toggle="collapse" href="#visualizations-dropdown" class="list-group-item list-group-item-action">Visualizations</a>
+        
+        <div class="collapse" id="visualizations-dropdown">
+            <div class="card card-body">
+                <!-- Create scatter matrix -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{ScatterMatrix.key}}-modal">
+                    Create {{ScatterMatrix.name_singular}}
+                </button>
+                <!-- Create histogram -->
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-{{Histogram.key}}-modal">
+                    Create {{Histogram.name_singular}}
+                </button>
+            </div>
+        </div>
+        {% include 'home/create_form.html' with component=ScatterMatrix as_modal=True form=create_scattermatrix_form %}
+        {% include 'home/create_form.html' with component=Histogram as_modal=True form=create_histogram_form %}
+    </div>
+</div>

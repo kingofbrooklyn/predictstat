@@ -1,0 +1,47 @@
+{% load home_extras %}
+
+{% with predictionordinaryleastsquares_context.predictionordinaryleastsquares.key as key %}
+{% with predictionordinaryleastsquares_context.predictionordinaryleastsquares as predictionordinaryleastsquares %}
+{% with predictionordinaryleastsquares_context.create_form as create_form %}
+{% with predictionordinaryleastsquares_context.update_form as update_form %}
+{% with predictionordinaryleastsquares_context.duplicate_form as duplicate_form %}
+{% with predictionordinaryleastsquares_context.predictionordinaryleastsquares.y as y %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=predictionordinaryleastsquares form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <!-- Data -->
+        <li class="nav-item">
+            <button class="nav-link active" id="{{key}}-{{predictionordinaryleastsquares.id}}-data-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{predictionordinaryleastsquares.id}}-data-tab-pane" type="button">{{ predictionordinaryleastsquares }}</button>
+        </li>
+        <!-- Form -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{predictionordinaryleastsquares.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{predictionordinaryleastsquares.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="{{key}}-{{predictionordinaryleastsquares.id}}-content">
+
+        <!-- Data -->
+        <div class="tab-pane fade show active" id="{{key}}-{{predictionordinaryleastsquares.id}}-data-tab-pane">
+            {% include 'home/'|addstr:y.key|addstr:'.html' with dataset=y %}
+        </div>
+
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{predictionordinaryleastsquares.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=predictionordinaryleastsquares %}
+        </div>
+    </div>
+    
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

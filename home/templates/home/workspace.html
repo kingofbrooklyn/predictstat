@@ -1,0 +1,167 @@
+{% load static %}
+{% load home_extras %}
+
+<div id={{Workspace.key}} class="col-10">
+    <div class="content-section">
+        <nav class="navbar bg-steel">
+            <!-- Component dropdowns -->
+            <ul class="nav" id="componentDropdowns">
+                <!-- Datasets -->
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">{{Dataset.name_plural}}</button>
+                    <ul class="dropdown-menu">
+
+                        <!-- DatasetUploads -->
+                        <li><h6 class="dropdown-header">Uploads</h6></li>
+                        {% for datasetupload_context in datasets.datasetuploads %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="{{datasetupload_context.datasetupload.key}}-tab-{{datasetupload_context.dataset.id}}" data-bs-toggle="tab" data-bs-target="#{{datasetupload_context.datasetupload.key}}-tab-content-{{datasetupload_context.datasetupload.id}}" type="button" role="tab">{{datasetupload_context.datasetupload}}</button>
+                            </li>
+                        {% endfor %}
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <!-- PredictionOrdinaryLeastSquares -->
+                        <li><h6 class="dropdown-header">Ordinary Least Squares Predictions</h6></li>
+                        {% for predictionordinaryleastsquares_context in datasets.predictionordinaryleastsquaress %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.key}}-tab-{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.id}}" data-bs-toggle="tab" data-bs-target="#{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.key}}-tab-content-{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.id}}" type="button" role="tab">{{predictionordinaryleastsquares_context.predictionordinaryleastsquares}}</button>
+                            </li>
+                        {% endfor %}
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <!-- PredictionRidgeRegressions -->
+                        <li><h6 class="dropdown-header">Ridge Regression Predictions</h6></li>
+                        {% for predictionridgeregression_context in datasets.predictionridgeregressions %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="{{predictionridgeregression_context.predictionridgeregression.key}}-tab-{{predictionridgeregression_context.predictionridgeregression.id}}" data-bs-toggle="tab" data-bs-target="#{{predictionridgeregression_context.predictionridgeregression.key}}-tab-content-{{predictionridgeregression_context.predictionridgeregression.id}}" type="button" role="tab">{{predictionridgeregression_context.predictionridgeregression}}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <!-- Regressions -->
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">Regressions</button>
+                    <ul class="dropdown-menu">
+                        <!-- OrdinaryLeastSquares -->
+                        <li><h6 class="dropdown-header">{{OrdinaryLeastSquares.name_plural}}</h6></li>
+                        {% for ordinaryleastsquares_context in ordinaryleastsquaress %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="ordinaryleastsquares-tab-{{ordinaryleastsquares_context.ordinaryleastsquares.id}}" data-bs-toggle="tab" data-bs-target="#ordinaryleastsquares-tab-content-{{ordinaryleastsquares_context.ordinaryleastsquares.id}}" type="button">{{ordinaryleastsquares_context.ordinaryleastsquares}}</button>
+                            </li>
+                        {% endfor %}
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <!-- RidgeRegressions -->
+                        <li><h6 class="dropdown-header">{{RidgeRegression.name_plural}}</h6></li>
+                        {% for ridgeregression_context in ridgeregressions %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="ridgeregression-tab-{{ridgeregression_context.ridgeregression.id}}" data-bs-toggle="tab" data-bs-target="#ridgeregression-tab-content-{{ridgeregression_context.ridgeregression.id}}" type="button" role="tab">{{ridgeregression_context.ridgeregression}}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <!-- Visualizations -->
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">Visualizations</button>
+                    <ul class="dropdown-menu">
+                        <!-- Scatter Matrices -->
+                        <li><h6 class="dropdown-header">{{ScatterMatrix.name_plural}}</h6></li>
+                        {% for scattermatrix_context in scattermatrixs %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="scattermatrix-tab-{{scattermatrix_context.scattermatrix.id}}" data-bs-toggle="tab" data-bs-target="#scattermatrix-tab-content-{{scattermatrix_context.scattermatrix.id}}" type="button" role="tab">{{scattermatrix_context.scattermatrix}}</button>
+                            </li>
+                        {% endfor %}
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <!-- Histograms -->
+                        <li><h6 class="dropdown-header">{{Histogram.name_plural}}</h6></li>
+                        {% for histogram_context in histograms %}
+                            <li class="dropdown-item">
+                                <button class="nav-link" id="histogram-tab-{{histogram_context.histogram.id}}" data-bs-toggle="tab" data-bs-target="#histogram-tab-content-{{histogram_context.histogram.id}}" type="button" role="tab">{{histogram_context.histogram}}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <!-- Workspace Form-->
+            <div>
+                {% include 'home/select_workspace.html' with form=select_workspace_form %}
+            </div>
+        </nav>
+
+        {% if workspace_active %}
+
+            <!-- Datasets -->
+            <!-- DatasetUploads -->
+            <div class="tab-content" id="datasetUploadsTabContent">
+                {% for datasetupload_context in datasets.datasetuploads %}
+                    <div class="tab-pane fade" id="{{datasetupload_context.datasetupload.key}}-tab-content-{{datasetupload_context.datasetupload.id}}" role="tabpanel">
+                        {% include 'home/'|addstr:datasetupload_context.datasetupload.key|addstr:'.html' with datasetupload_context=datasetupload_context %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- PredictionOrdinaryLeastSquaress -->
+            <div class="tab-content" id="predictionOrdinaryLeastSquaressTabContent">
+                {% for predictionordinaryleastsquares_context in datasets.predictionordinaryleastsquaress %}
+                    <div class="tab-pane fade" id="{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.key}}-tab-content-{{predictionordinaryleastsquares_context.predictionordinaryleastsquares.id}}" role="tabpanel">
+                        {% include 'home/'|addstr:predictionordinaryleastsquares_context.predictionordinaryleastsquares.key|addstr:'.html' with predictionordinaryleastsquares_context=predictionordinaryleastsquares_context %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- PredictionRidgeRegressions -->
+            <div class="tab-content" id="predictionRidgeRegressionsTabContent">
+                {% for predictionridgeregression_context in datasets.predictionridgeregressions %}
+                    <div class="tab-pane fade" id="{{predictionridgeregression_context.predictionridgeregression.key}}-tab-content-{{predictionridgeregression_context.predictionridgeregression.id}}" role="tabpanel">
+                        {% include 'home/'|addstr:predictionridgeregression_context.predictionridgeregression.key|addstr:'.html' with predictionridgeregression_context=predictionridgeregression_context %}
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <!-- Regressions -->
+            <!-- OrdinaryLeastSquares -->
+            <div class="tab-content" id="ordinaryLeastSquaresTabContent">
+                {% for ordinaryleastsquares_context in ordinaryleastsquaress %}
+                    <div class="tab-pane fade" id="ordinaryleastsquares-tab-content-{{ordinaryleastsquares_context.ordinaryleastsquares.id}}" role="tabpanel">
+                        {% include 'home/ordinaryleastsquares.html' with ordinaryleastsquares_context=ordinaryleastsquares_context %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Ridge Regressions -->
+            <div class="tab-content" id="ridgeRegressionsTabContent">
+                {% for ridgeregression_context in ridgeregressions %}
+                    <div class="tab-pane fade" id="ridgeregression-tab-content-{{ridgeregression_context.ridgeregression.id}}" role="tabpanel">
+                        {% include 'home/ridgeregression.html' with ridgeregression_context=ridgeregression_context %}
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <!-- Visualizations -->
+            <!-- Scatter Matrices -->
+            <div class="tab-content" id="scatterMatricesTabContent">
+                {% for scattermatrix_context in scattermatrixs %}
+                    <div class="tab-pane fade" id="scattermatrix-tab-content-{{scattermatrix_context.scattermatrix.id}}" role="tabpanel">
+                        {% include 'home/scattermatrix.html' with scattermatrix_context=scattermatrix_context %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Histograms -->
+            <div class="tab-content" id="histogramsTabContent">
+                {% for histogram_context in histograms %}
+                    <div class="tab-pane fade" id="histogram-tab-content-{{histogram_context.histogram.id}}" role="tabpanel">
+                        {% include 'home/histogram.html' with histogram_context=histogram_context %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+    </div>
+</div>

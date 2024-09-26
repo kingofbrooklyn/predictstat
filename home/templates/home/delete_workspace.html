@@ -1,0 +1,7 @@
+<form method="POST" enctype="multipart/form-data" action='{% url "account-delete-workspace" %}'>
+  {% csrf_token %}
+  <div style="display:none">
+    {{ form.as_p }}
+  </div>
+  <button type="submit" class="btn btn-primary">Delete</button>
+</form>

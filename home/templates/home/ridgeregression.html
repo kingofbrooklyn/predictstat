@@ -1,0 +1,65 @@
+{% load home_extras %}
+
+{% with ridgeregression_context.ridgeregression.key as key %}
+{% with ridgeregression_context.ridgeregression as ridgeregression %}
+{% with ridgeregression_context.create_form as create_form %}
+{% with ridgeregression_context.update_form as update_form %}
+{% with ridgeregression_context.duplicate_form as duplicate_form %}
+{% with ridgeregression_context.create_prediction_form as create_prediction_form %}
+{% with ridgeregression_context.ridgeregression.x as x %}
+{% with ridgeregression_context.ridgeregression.y as y %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=ridgeregression form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <!-- Regression -->
+        <li class="nav-item">
+            <button class="nav-link active" 
+                    id="{{key}}-{{ridgeregression.id}}-reg-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#{{key}}-{{ridgeregression.id}}-reg-tab-pane" 
+                    type="button">{{ ridgeregression }}</button>
+        </li>
+        <!-- Prediction -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{ridgeregression.id}}-pred-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{ridgeregression.id}}-pred-tab-pane" type="button">Predict</button>
+        </li>
+        <!-- Form -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{ridgeregression.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{ridgeregression.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="{{key}}-{{ridgeregression.id}}-content">
+        <!-- Regression -->
+        <div class="tab-pane fade show active" id="{{key}}-{{ridgeregression.id}}-reg-tab-pane">
+            <p>X: {{ x }}</p>
+            <p>Y: {{ y }}</p>
+            <p>coef_:{{ ridgeregression.reg.coef_ }}</p>
+            <p>n_features_in_:{{ ridgeregression.reg.n_features_in_ }}</p>
+        </div>
+
+        <!-- Prediction -->
+        <div class="tab-pane fade" id="{{key}}-{{ridgeregression.id}}-pred-tab-pane">
+            {% include 'home/create_form.html' with component=ridgeregression_context.prediction_obj form=create_prediction_form as_modal=False %}
+        </div>
+
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{ridgeregression.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=ridgeregression %}
+        </div>
+    </div>
+
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

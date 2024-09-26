@@ -1,0 +1,44 @@
+{% load home_extras %}
+
+{% with scattermatrix_context.scattermatrix.key as key %}
+{% with scattermatrix_context.scattermatrix as scattermatrix %}
+{% with scattermatrix_context.create_form as create_form %}
+{% with scattermatrix_context.update_form as update_form %}
+{% with scattermatrix_context.duplicate_form as duplicate_form %}
+{% with scattermatrix_context.scattermatrix.x as x %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=scattermatrix form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <li class="nav-item">
+            <button class="nav-link active" id="{{key}}-{{scattermatrix.id}}-reg-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{scattermatrix.id}}-reg-tab-pane" type="button">{{ scattermatrix }}</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{scattermatrix.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{scattermatrix.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="{{key}}-{{scattermatrix.id}}-content">
+        <!-- fig -->
+        <div class="tab-pane fade show active" id="{{key}}-{{scattermatrix.id}}-reg-tab-pane">
+            <p>X: {{ x }}</p>
+            {{ scattermatrix.fig.to_html|safe }}
+        </div>
+
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{scattermatrix.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=scattermatrix %}
+        </div>
+    </div>
+
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

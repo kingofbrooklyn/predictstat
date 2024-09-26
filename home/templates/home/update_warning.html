@@ -1,0 +1,11 @@
+<div>
+    {% if not component.updated %}
+        <p>WARNING: Changes have been made to input data, {{ component }} is not updated!</p>
+        <p>Press refresh to update.</p> 
+        <form method="POST" enctype="multipart/form-data" action='{% url form_action %}'>
+            {% csrf_token %}
+            <input name={{ component_name }} value={{ component.id }} type="hidden">
+            <button type="submit" class="btn btn-primary">Refresh</button>
+        </form>
+    {% endif %}
+</div>

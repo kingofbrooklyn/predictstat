@@ -1,0 +1,5 @@
+<form method="POST" enctype="multipart/form-data" action='{% url "home-select-workspace" %}'>
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit" class="btn btn-primary">Select</button>
+</form>

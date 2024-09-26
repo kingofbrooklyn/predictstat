@@ -1,0 +1,10 @@
+<div id="{{div_id}}">
+  <h5>{{ form_title }}</h5>
+  <form method="POST" enctype="multipart/form-data" action='{% url form_action %}'>
+    <table>
+      {% csrf_token %}
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

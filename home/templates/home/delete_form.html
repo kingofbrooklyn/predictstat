@@ -1,0 +1,3 @@
+{% load home_extras %}
+
+{% include 'home/select_form.html' with form_action='home-delete-'|addstr:component.key component_name=component.key component_id=component.id button_title="Delete" %}

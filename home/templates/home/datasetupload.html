@@ -1,0 +1,47 @@
+{% load home_extras %}
+
+{% with datasetupload_context.datasetupload.key as key %}
+{% with datasetupload_context.datasetupload as datasetupload %}
+{% with datasetupload_context.create_form as create_form %}
+{% with datasetupload_context.update_form as update_form %}
+{% with datasetupload_context.duplicate_form as duplicate_form %}
+{% with datasetupload_context.datasetupload.dataset as dataset %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=datasetupload form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <!-- Data -->
+        <li class="nav-item">
+            <button class="nav-link active" id="{{key}}-{{datasetupload.id}}-data-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{datasetupload.id}}-data-tab-pane" type="button">{{ datasetupload }}</button>
+        </li>
+        <!-- Form -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{datasetupload.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{datasetupload.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="{{key}}-{{datasetupload.id}}-content">
+
+        <!-- Data -->
+        <div class="tab-pane fade show active" id="{{key}}-{{datasetupload.id}}-data-tab-pane">
+            {% include 'home/'|addstr:dataset.key|addstr:'.html' with dataset=dataset %}
+        </div>
+
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{datasetupload.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=datasetupload %}
+        </div>
+    </div>
+    
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

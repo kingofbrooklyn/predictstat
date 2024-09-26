@@ -1,0 +1,65 @@
+{% load home_extras %}
+
+{% with ordinaryleastsquares_context.ordinaryleastsquares.key as key %}
+{% with ordinaryleastsquares_context.ordinaryleastsquares as ordinaryleastsquares %}
+{% with ordinaryleastsquares_context.create_form as create_form %}
+{% with ordinaryleastsquares_context.update_form as update_form %}
+{% with ordinaryleastsquares_context.duplicate_form as duplicate_form %}
+{% with ordinaryleastsquares_context.create_prediction_form as create_prediction_form %}
+{% with ordinaryleastsquares_context.ordinaryleastsquares.x as x %}
+{% with ordinaryleastsquares_context.ordinaryleastsquares.y as y %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=ordinaryleastsquares form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <!-- Regression -->
+        <li class="nav-item">
+            <button class="nav-link active" 
+                    id="{{key}}-{{ordinaryleastsquares.id}}-reg-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#{{key}}-{{ordinaryleastsquares.id}}-reg-tab-pane" 
+                    type="button">{{ ordinaryleastsquares }}</button>
+        </li>
+        <!-- Prediction -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{ordinaryleastsquares.id}}-pred-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{ordinaryleastsquares.id}}-pred-tab-pane" type="button">Predict</button>
+        </li>
+        <!-- Form -->
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{ordinaryleastsquares.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{ordinaryleastsquares.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="{{key}}-{{ordinaryleastsquares.id}}-content">
+        <!-- Regression -->
+        <div class="tab-pane fade show active" id="{{key}}-{{ordinaryleastsquares.id}}-reg-tab-pane">
+            <p>X: {{ x }}</p>
+            <p>Y: {{ y }}</p>
+            <p>coef_:{{ ordinaryleastsquares.reg.coef_ }}</p>
+            <p>n_features_in_:{{ ordinaryleastsquares.reg.n_features_in_ }}</p>
+        </div>
+
+        <!-- Prediction -->
+        <div class="tab-pane fade" id="{{key}}-{{ordinaryleastsquares.id}}-pred-tab-pane">
+            {% include 'home/create_form.html' with component=ordinaryleastsquares_context.prediction_obj form=create_prediction_form as_modal=False %}
+        </div>
+        
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{ordinaryleastsquares.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=ordinaryleastsquares %}
+        </div>
+    </div>
+
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

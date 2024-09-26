@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+<!-- Modal header, display form title -->
+<div class="modal-header">
+    <!--Header-->
+    <h1>Login</h1>
+    <!-- Cancel button -->
+    <button class="close" type="submit" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!--Form logic -->
+<div class="form-group">
+    <form method="POST" enctype='multipart/form-data' action='{% url "account-login" %}'>
+
+        <!--Form-->
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+    
+        <!-- Footer, has submit button -->
+        <div class="modal-footer">
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+    
+</div>
+
+{% endblock content %}

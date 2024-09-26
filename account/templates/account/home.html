@@ -1,0 +1,84 @@
+{% extends 'home/base.html' %}
+{% load static %} <!-- Load static files -->
+{% load account_extras %}
+
+{% block content %}
+
+<h1>Welcome to your profile</h1>
+
+<hr>
+
+<!-- Workspaces -->
+
+<div id="workspaces">
+    <h3>Workspaces</h3>
+    <table class="table table-bordered">
+        <tbody>
+            {% for workspace in user.workspace_set.all %}
+                <tr>
+
+                    <td>{{ workspace }}</td>
+
+                    <!-- Datasets -->
+                    <td>
+                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">Datasets</button>
+                        <ul class="dropdown-menu">
+                            {% for dataset in workspace.datasets.all %}
+                                <li class="dropdown-item">{{dataset}}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+
+                    <!-- Regressions -->
+                    <td>
+                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">Regressions</button>
+                        <ul class="dropdown-menu">
+                            <!-- Ordinary Least Squares-->
+                            <li><h6 class="dropdown-header">Ordinary Least Squares</h6></li>
+                            {% for ordinary_least_squares in workspace.ordinary_least_squares.all %}
+                                <li class="dropdown-item">{{ordinary_least_squares}}</li>
+                            {% endfor %}
+                            <!-- Ridge Regressions-->
+                            <li><h6 class="dropdown-header">Ridge Regressions</h6></li>
+                            {% for ridge_regression in workspace.ridge_regressions.all %}
+                                <li class="dropdown-item">{{ridge_regression}}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+
+                    <!-- Visualizations -->
+                    <td>
+                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button">Visualizations</button>
+                        <ul class="dropdown-menu">
+                            <!-- Scatter Matrices-->
+                            <li><h6 class="dropdown-header">Scatter Matrices</h6></li>
+                            {% for scatter_matrix in workspace.scatter_matrices.all %}
+                                <li class="dropdown-item">{{scatter_matrix}}</li>
+                            {% endfor %}
+                            <!-- Histograms-->
+                            <li><h6 class="dropdown-header">Histograms</h6></li>
+                            {% for histogram in workspace.histograms.all %}
+                                <li class="dropdown-item">{{histogram}}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+
+                    <!-- Update -->
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-workspace-{{workspace.id}}-modal">
+                            Update
+                        </button>
+                        {% initialize_update_workspace workspace=workspace user=user %}
+                    </td>
+
+                    <!-- Delete -->
+                    <td>
+                        {% initialize_delete_workspace workspace=workspace user=user %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

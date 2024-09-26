@@ -1,0 +1,24 @@
+upload file without being logged in causes odd error
+files not being deleted in media
+still need to set files to None to pass validation?
+keep same component open on refresh
+form error page redisplay working?
+implement connections ('component' class one-to-one, 'connections' fields), change is_updated checks in context
+
+add component types
+-scatter xy
+
+add tooltip helps on forms
+account delete, edit profile info
+
+
+flesh out component content
+-dataset
+---scroll bar on data
+---basic statistics (sample size, mean, std dev, min max)
+-regression
+---option for validation (maybe during fitting)
+---surface/line plots
+---validation results
+-visualization
+---resize option

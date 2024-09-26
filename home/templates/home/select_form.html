@@ -1,0 +1,7 @@
+<form method="POST" enctype="multipart/form-data" action='{% url form_action %}'>
+    <div style="display:none">
+        {% csrf_token %}
+        <input name={{ component_name }} value={{ component_id }}>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ button_title }}</button>
+</form>

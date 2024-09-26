@@ -1,0 +1,15 @@
+COMMAND REMINDERS
+
+---conda activate---
+c:/users/am_ke/anaconda3/scripts/activate.bat
+conda activate predictstatenv
+
+--django--
+python manage.py runserver
+python manage.py startapp app_name
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+To cleanup all unused media files, run management command:
+python manage.py cleanup_unused_media

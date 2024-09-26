@@ -1,0 +1,7 @@
+{% load account_extras %}
+
+{% if as_modal %}
+    {% include 'home/crud_form_modal.html' with modal_id="update-workspace-"|addstr:workspace.id|addstr:"-modal" form_title="Edit Workspace" form_action="account-update-workspace" %}
+{% else %}
+    {% include 'home/crud_form.html' with div_id="update-workspace-"|addstr:workspace.id|addstr:"-div" form_title="Edit Workspace" form_action="account-update-workspace" %}
+{% endif %}

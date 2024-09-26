@@ -1,0 +1,44 @@
+{% load home_extras %}
+
+{% with histogram_context.histogram.key as key %}
+{% with histogram_context.histogram as histogram %}
+{% with histogram_context.create_form as create_form %}
+{% with histogram_context.update_form as update_form %}
+{% with histogram_context.duplicate_form as duplicate_form %}
+{% with histogram_context.histogram.x as x %}
+
+<div>
+
+    {% include 'home/update_warning.html' with component=histogram form_action="home-refresh-"|addstr:key component_name=key %}
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" >
+        <li class="nav-item">
+            <button class="nav-link active" id="{{key}}-{{histogram.id}}-reg-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{histogram.id}}-reg-tab-pane" type="button">{{ histogram }}</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="{{key}}-{{histogram.id}}-form-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-{{histogram.id}}-form-tab-pane" type="button">Form</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="{{key}}-{{histogram.id}}-content">
+        <!-- fig -->
+        <div class="tab-pane fade show active" id="{{key}}-{{histogram.id}}-reg-tab-pane">
+            <p>X: {{ x }}</p>
+            {{ histogram.fig.to_html|safe }}
+        </div>
+
+        <!-- Form -->
+        <div class="tab-pane fade" id='{{key}}-{{histogram.id}}-form-tab-pane'>
+            {% include 'home/component_form.html' with component=histogram %}
+        </div>
+    </div>
+
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

@@ -472,9 +472,11 @@ class VisualizationXAbstract(Base):
 
     ### title ###
     MAX_LENGTH_TITLE = 20
+    DEFAULT_TITLE = "Visualization"
     HELP_TEXT_TITLE = "The title of the visualization."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,\
                             blank=False,
+                            default=DEFAULT_TITLE,
                             help_text=HELP_TEXT_TITLE)
 
     ### x ###
@@ -520,7 +522,7 @@ class Histogram(VisualizationXAbstract):
     ### nbins ###
     BLANK_NBINS = True
     NULL_NBINS = True
-    HELP_TEXT_NBINS = "The number of bins to use."
+    HELP_TEXT_NBINS = "The number of bins to use. Leave blank to chose to make comparable to the typical number of samples in a bin."
     nbins = models.PositiveIntegerField(blank=BLANK_NBINS,
                                         null=NULL_NBINS,
                                         help_text=HELP_TEXT_NBINS)

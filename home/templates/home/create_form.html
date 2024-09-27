@@ -1,7 +1,11 @@
 {% load home_extras %}
 
+{% with app=app|checkdefault:'home' %}
+
 {% if as_modal %}
-    {% include 'home/crud_form_modal.html' with modal_id='create-'|addstr:component.key|addstr:'-modal' form_title="Create "|addstr:component.name_singular form_action='home-create-'|addstr:component.key %}
+    {% include 'home/crud_form_modal.html' with modal_id='create-'|addstr:component.key|addstr:'-modal' form_title="Create "|addstr:component.name_singular form_action=app|addstr:'-create-'|addstr:component.key %}
 {% else %}
-    {% include 'home/crud_form.html' with div_id='create-'|addstr:component.key|addstr:'-div' form_title="Create "|addstr:component.name_singular form_action='home-create-'|addstr:component.key %}
+    {% include 'home/crud_form.html' with div_id='create-'|addstr:component.key|addstr:'-div' form_title="Create "|addstr:component.name_singular form_action=app|addstr:'-create-'|addstr:component.key %}
 {% endif %}
+
+{% endwith %}

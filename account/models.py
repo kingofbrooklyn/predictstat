@@ -3,8 +3,15 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
 
+    name_singular = "User"
+    name_plural = "Users"
+
     def __str__(self):
         return str(self.username)
+
+    @property
+    def key(self):
+        return 'user'
 
     email = models.EmailField("email address", unique=True)
 

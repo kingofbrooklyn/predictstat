@@ -8,6 +8,7 @@ def get_home_context(request):
 
     context = {}
     context['page_title'] = "Account Home"
+    context['update_account_form'] = UpdateAccountForm(instance=request.user)
 
     return context
 
@@ -152,3 +153,17 @@ def update_workspace(request):
     else:
         context = {'form': select_form}
         return render(request, 'account/update_workspace.html', context)
+
+@login_required(login_url='account-login')
+def update_user(request):
+
+    form = UpdateAccountForm(request.POST, instance=request.user)
+
+    if form.is_valid():
+        form.save()
+        return redirect('account-home')
+
+    context = {}
+    context['form'] = form
+    context['form_action'] = 'account-update-user'
+    return render(request, 'home/crud_form.html', context)

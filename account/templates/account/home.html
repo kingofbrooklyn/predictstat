@@ -8,8 +8,25 @@
 
 <hr>
 
-<!-- Workspaces -->
+<!-- Account -->
+ <div id="account">
+    <h3>Account</h3>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target='#update-{{user.key}}-{{user.id}}-modal'>
+        Update Account Details
+    </button>
+    {% include 'home/update_form.html' with component=user form=update_account_form as_modal=True app='account' %}
+ </div>
 
+ <!-- Logins -->
+ <div id="logins">
+    <h3>Logins</h3>
+    <table>
+        <tr><th>Last login:</th><td>{{ user.last_login }}</td></tr>
+        <tr><th>Date joined:</th><td>{{ user.date_joined }}</td></tr>
+    </table>
+ </div>
+
+<!-- Workspaces -->
 <div id="workspaces">
     <h3>Workspaces</h3>
     <table class="table table-bordered">
@@ -35,13 +52,13 @@
                         <ul class="dropdown-menu">
                             <!-- Ordinary Least Squares-->
                             <li><h6 class="dropdown-header">Ordinary Least Squares</h6></li>
-                            {% for ordinary_least_squares in workspace.ordinary_least_squares.all %}
-                                <li class="dropdown-item">{{ordinary_least_squares}}</li>
+                            {% for ordinaryleastsquares in workspace.ordinaryleastsquaress.all %}
+                                <li class="dropdown-item">{{ordinaryleastsquares}}</li>
                             {% endfor %}
                             <!-- Ridge Regressions-->
                             <li><h6 class="dropdown-header">Ridge Regressions</h6></li>
-                            {% for ridge_regression in workspace.ridge_regressions.all %}
-                                <li class="dropdown-item">{{ridge_regression}}</li>
+                            {% for ridgeregression in workspace.ridgeregressions.all %}
+                                <li class="dropdown-item">{{ridgeregression}}</li>
                             {% endfor %}
                         </ul>
                     </td>
@@ -52,8 +69,8 @@
                         <ul class="dropdown-menu">
                             <!-- Scatter Matrices-->
                             <li><h6 class="dropdown-header">Scatter Matrices</h6></li>
-                            {% for scatter_matrix in workspace.scatter_matrices.all %}
-                                <li class="dropdown-item">{{scatter_matrix}}</li>
+                            {% for scattermatrix in workspace.scattermatrixs.all %}
+                                <li class="dropdown-item">{{scattermatrix}}</li>
                             {% endfor %}
                             <!-- Histograms-->
                             <li><h6 class="dropdown-header">Histograms</h6></li>

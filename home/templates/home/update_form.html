@@ -1,7 +1,11 @@
 {% load home_extras %}
 
+{% with app=app|checkdefault:'home' %}
+
 {% if as_modal %}
-    {% include 'home/crud_form_modal.html' with modal_id='update-'|addstr:component.key|addstr:'-'|addstr:component.id|addstr:'-modal' form_title="Update "|addstr:component.name_singular form_action='home-update-'|addstr:component.key %}
+    {% include 'home/crud_form_modal.html' with modal_id='update-'|addstr:component.key|addstr:'-'|addstr:component.id|addstr:'-modal' form_title="Update "|addstr:component.name_singular form_action=app|addstr:'-update-'|addstr:component.key %}
 {% else %}
-    {% include 'home/crud_form.html' with div_id='update-'|addstr:component.key|addstr:'-'|addstr:component.id|addstr:"-div" form_title="Update "|addstr:component.name_singular form_action='home-update-'|addstr:component.key %}
+    {% include 'home/crud_form.html' with div_id='update-'|addstr:component.key|addstr:'-'|addstr:component.id|addstr:"-div" form_title="Update "|addstr:component.name_singular form_action=app|addstr:'-update-'|addstr:component.key %}
 {% endif %}
+
+{% endwith %}

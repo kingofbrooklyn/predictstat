@@ -2,7 +2,7 @@ keep same component open on refresh
 form error page redisplay working?
 account delete, edit profile info
 files not being deleted in media
-
+Default nbins/visualization title
 
 add component types
 -scatter xy

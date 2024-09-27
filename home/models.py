@@ -165,11 +165,6 @@ class DatasetUpload(Base):
         instance.dataset.df_file = instance.df_file.path
         instance.dataset.save()
 
-    @staticmethod
-    def post_delete_cascade(sender, instance, **kwargs):
-        # Delete the related dataset
-        instance.dataset.delete()
-
     def read_uploaded_file(df_file):
         if isinstance(df_file, InMemoryUploadedFile) or isinstance(df_file, File):
             df = read_csv(df_file)
@@ -201,7 +196,6 @@ class DatasetUpload(Base):
                                     related_name=RELATED_NAME_DATASET)
 
 models.signals.post_save.connect(DatasetUpload.post_save_updates, sender=DatasetUpload)
-models.signals.post_delete.connect(DatasetUpload.post_delete_cascade, sender=DatasetUpload)
 
 ### Prediction ###
 
@@ -218,11 +212,6 @@ class PredictionXYAbstract(Base):
         # Ensure path to file is updated on dataset
         instance.y.df_file = instance.y_file.path
         instance.y.save()
-
-    @staticmethod
-    def post_delete_cascade(sender, instance, **kwargs):
-        # Delete the related dataset (y)
-        instance.y.delete()
 
     ### title ###
     MAX_LENGTH_TITLE = 50
@@ -280,7 +269,6 @@ class PredictionOrdinaryLeastSquares(PredictionXYAbstract):
                         related_name=RELATED_NAME_REGRESSION)
 
 models.signals.post_save.connect(PredictionOrdinaryLeastSquares.post_save_updates, sender=PredictionOrdinaryLeastSquares)
-models.signals.post_delete.connect(PredictionOrdinaryLeastSquares.post_delete_cascade, sender=PredictionOrdinaryLeastSquares)
 
 class PredictionRidgeRegression(PredictionXYAbstract):
 
@@ -297,7 +285,6 @@ class PredictionRidgeRegression(PredictionXYAbstract):
                                 related_name=RELATED_NAME_REGRESSION)
 
 models.signals.post_save.connect(PredictionRidgeRegression.post_save_updates, sender=PredictionRidgeRegression)
-models.signals.post_delete.connect(PredictionRidgeRegression.post_delete_cascade, sender=PredictionRidgeRegression)
 
 ### Regression ###
 

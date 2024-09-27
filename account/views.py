@@ -21,7 +21,7 @@ def home(request):
 
     context = get_home_context(request)
 
-    return redirect('home-home')
+    return render(request, 'account/home.html', context)
 
 def register(request):
 
@@ -81,7 +81,7 @@ def login_(request):
                 # Login the user
                 login(request, user)
 
-                return redirect('account-home')
+                return redirect('home-home')
 
     elif request.method == 'GET':
         context['form'] = LoginForm()

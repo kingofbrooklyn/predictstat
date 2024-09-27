@@ -1,15 +1,14 @@
-files not being deleted in media
 still need to set files to None to pass validation?
 keep same component open on refresh
 form error page redisplay working?
 implement connections ('component' class one-to-one, 'connections' fields), change is_updated checks in context
+add tooltip helps on forms
+account delete, edit profile info
+files not being deleted in media
+
 
 add component types
 -scatter xy
-
-add tooltip helps on forms
-account delete, edit profile info
-
 
 flesh out component content
 -dataset

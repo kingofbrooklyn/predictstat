@@ -181,9 +181,11 @@ class DatasetUpload(Base):
     MAX_LENGTH_TITLE = 50
     BLANK_TITLE = True
     NULL_TITLE = False
+    HELP_TEXT_TITLE = "The title for the dataset. Defaults to the filename, with the extension."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,
                             null=NULL_TITLE,
-                            blank=BLANK_TITLE)
+                            blank=BLANK_TITLE,
+                            help_text=HELP_TEXT_TITLE)
 
     ### df_file ###
     BLANK_DF_FILE = False
@@ -226,18 +228,24 @@ class PredictionXYAbstract(Base):
     MAX_LENGTH_TITLE = 50
     BLANK_TITLE = True
     NULL_TITLE = False
+    DEFAULT_TITLE = "Prediction"
+    HELP_TEXT_TITLE = "The title for the predicted dataset."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,
                             null=NULL_TITLE,
-                            blank=BLANK_TITLE)
+                            blank=BLANK_TITLE,
+                            default=DEFAULT_TITLE,
+                            help_text=HELP_TEXT_TITLE)
 
     ### x ###
     NULL_X = True
     ON_DELETE_X = models.CASCADE
     RELATED_NAME_X = '%(class)ss_as_x'
+    HELP_TEXT_X = "The data to input to the regression for prediction."
     x = models.ForeignKey(Dataset,
                         null=NULL_X,
                         on_delete=ON_DELETE_X,
-                        related_name=RELATED_NAME_X)
+                        related_name=RELATED_NAME_X,
+                        help_text=HELP_TEXT_X)
 
     ### y ###
     NULL_Y = True
@@ -340,6 +348,7 @@ class RegressionXYAbstract(Base):
     ### title ###
     MAX_LENGTH_TITLE = 20
     BLANK_TITLE = False
+    HELP_TEXT_TITLE = "Title for the regression."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,\
                             blank=BLANK_TITLE)
 
@@ -347,6 +356,7 @@ class RegressionXYAbstract(Base):
     NULL_X = True
     ON_DELETE_X = models.CASCADE
     RELATED_NAME_X = '%(class)ss_as_x'
+    HELP_TEXT_X = "The input/X dataset to fit the regression."
     x = models.ForeignKey(Dataset,
                         null=NULL_X,
                         on_delete=ON_DELETE_X,
@@ -356,6 +366,7 @@ class RegressionXYAbstract(Base):
     NULL_Y = True
     ON_DELETE_Y = models.CASCADE
     RELATED_NAME_Y = '%(class)ss_as_y'
+    HELP_TEXT_Y = "The output/observations/Y dataset to fit the regression."
     y = models.ForeignKey(Dataset,
                         null=NULL_Y,
                         on_delete=ON_DELETE_Y,
@@ -402,25 +413,35 @@ class RidgeRegression(RegressionXYAbstract):
     ### alpha ###
     BLANK_ALPHA = False
     NULL_ALPHA = False
+    DEFAULT_ALPHA = 1
+    HELP_TEXT_ALPHA = "Constant that multiplies the L2 term, controlling regularization strength. alpha must be a non-negative float i.e. in [0, inf)."
     alpha = models.FloatField(blank=BLANK_ALPHA,
                             null=NULL_ALPHA,
-                            default=1,
-                            validators=[MinValueValidator(0)])
+                            default=DEFAULT_ALPHA,
+                            validators=[MinValueValidator(0)],
+                            help_text=HELP_TEXT_ALPHA)
 
     ### solver ###
-    CHOICES_SOLVER = [('auto', "auto"),\
-                        ('lbfgs', "lbfgs"),\
-                        ('cholesky', "cholesky"),\
-                        ('sparse_cg', "sparse_cg")]
+    CHOICES_SOLVER = [('auto', "auto"),
+                        ('svd', "svd"),
+                        ('cholesky', "cholesky"),
+                        ('lsqr', "lsqr"),
+                        ('sparse_cg', "sparse_cg"),
+                        ('sag', "sag"),
+                        ('saga', "saga"),
+                        ('lbfgs', "lbfgs"),
+                    ]
     MAX_LENGTH_SOLVER = max_length(CHOICES_SOLVER)
     DEFAULT_SOLVER = 'auto'
     NULL_SOLVER = False
     BLANK_SOLVER = False
+    HELP_TEXT_SOLVER = "Solver to use in the computational routines."
     solver = models.CharField(choices=CHOICES_SOLVER,\
                                 max_length=MAX_LENGTH_SOLVER,\
                                 default=DEFAULT_SOLVER,\
                                 null=NULL_SOLVER,\
-                                blank=BLANK_SOLVER)
+                                blank=BLANK_SOLVER,\
+                                help_text=HELP_TEXT_SOLVER)
 
 ### Visualization ###
 
@@ -464,14 +485,18 @@ class VisualizationXAbstract(Base):
 
     ### title ###
     MAX_LENGTH_TITLE = 20
+    HELP_TEXT_TITLE = "The title of the visualization."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,\
-                            blank=False,)
+                            blank=False,
+                            help_text=HELP_TEXT_TITLE)
 
     ### x ###
+    HELP_TEXT_X = "The data to visualize."
     x = models.ForeignKey('Dataset',
                         null=True,
                         on_delete=models.CASCADE,
-                        related_name='%(class)ss')
+                        related_name='%(class)ss',
+                        help_text=HELP_TEXT_X)
 
     ### fig_file ###
     BLANK_FIG_FILE = True
@@ -507,9 +532,11 @@ class Histogram(VisualizationXAbstract):
 
     ### nbins ###
     BLANK_NBINS = True
-    NULL_BNBINS = True
+    NULL_NBINS = True
+    HELP_TEXT_NBINS = "The number of bins to use."
     nbins = models.PositiveIntegerField(blank=BLANK_NBINS,
-                                        null=NULL_BNBINS)
+                                        null=NULL_NBINS,
+                                        help_text=HELP_TEXT_NBINS)
 
 ### Workspace ###
 
@@ -524,9 +551,11 @@ class Workspace(Base):
     ### title ###
     MAX_LENGTH_TITLE = 20
     DEFAULT_TITLE = "Workspace"
+    HELP_TEXT_TITLE = "The title of the workspace."
     title = models.CharField(max_length=MAX_LENGTH_TITLE,\
                             blank=False,
-                            default=DEFAULT_TITLE)
+                            default=DEFAULT_TITLE,
+                            help_text=HELP_TEXT_TITLE)
 
     ### datasets ###
     datasets = models.ManyToManyField('Dataset', related_name='%(class)ss')

@@ -1,7 +1,5 @@
 keep same component open on refresh
 form error page redisplay working?
-implement connections ('component' class one-to-one, 'connections' fields), change is_updated checks in context
-add tooltip helps on forms
 account delete, edit profile info
 files not being deleted in media
 
@@ -19,3 +17,8 @@ flesh out component content
 ---validation results
 -visualization
 ---resize option
+
+
+v2
+add tooltip helps on forms; get exact copies of descriptions from source packages
+implement connections ('component' class one-to-one, 'connections' fields), change is_updated checks in context

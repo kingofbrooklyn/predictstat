@@ -21,7 +21,7 @@ def home(request):
 
     context = get_home_context(request)
 
-    return render(request, 'account/home.html', context)
+    return redirect('home-home')
 
 def register(request):
 

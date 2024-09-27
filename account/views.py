@@ -44,7 +44,7 @@ def register(request):
             user = form.save()
             login(request, user)
 
-            return redirect('account-home')
+            return redirect('home-home')
 
     elif request.method == 'GET':
         context['form'] = RegisterForm()

@@ -1,4 +1,3 @@
-still need to set files to None to pass validation?
 keep same component open on refresh
 form error page redisplay working?
 implement connections ('component' class one-to-one, 'connections' fields), change is_updated checks in context

@@ -86,8 +86,6 @@ class Base(models.Model):
 
     time_created = models.DateTimeField(auto_now_add=True)
 
-models.signals.post_delete.connect(Base.post_delete_delete_file_fields)
-
 ### Dataset ###
 
 class Dataset(Base):

@@ -1,8 +1,9 @@
-keep same component open on refresh
-form error page redisplay working?
 delete entire media directory of user when they delete their account
+straighten out signals (why separate file, and lines below models?)
 
-files not being deleted in media?
+implement ajax:
+-keep same component open on refresh
+-form error page redisplay working?
 
 add component types
 -scatter xy

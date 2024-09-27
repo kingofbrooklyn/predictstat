@@ -13,4 +13,5 @@ urlpatterns = [
     path('account-update-workspace', views.update_workspace, name='account-update-workspace'),\
 
     path('account-update-user', views.update_user, name='account-update-user'),\
+    path('account-delete-user', views.delete_user, name='account-delete-user'),\
 ]

@@ -18,4 +18,14 @@ class UpdateAccountForm(forms.ModelForm):
         model = CustomUser
         fields = ['email', 'username', 'first_name', 'last_name']
     
+class SelectUserForm(forms.Form):
 
+    user = forms.ModelChoiceField(queryset=CustomUser.objects.none())
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(SelectUserForm, self).__init__(*args, **kwargs)
+        self.fields['user'].queryset = CustomUser.objects.filter(id=self.user.id)
+
+class DeleteUserForm(SelectUserForm):
+    pass

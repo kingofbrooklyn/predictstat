@@ -10,11 +10,21 @@
 
 <!-- Account -->
  <div id="account">
-    <h3>Account</h3>
+    <!-- Display -->
+    <h3>Account Details</h3>
+    <fieldset disabled="disabled">
+        {% include 'home/update_form.html' with component=user form=update_account_form as_modal=False app='account' %}
+    </fieldset>
+
+    <!-- Update -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target='#update-{{user.key}}-{{user.id}}-modal'>
-        Update Account Details
+        Update
     </button>
     {% include 'home/update_form.html' with component=user form=update_account_form as_modal=True app='account' %}
+
+    <!-- Delete -->
+    {% include 'home/delete_form.html' with component=user app='account' %}
+
  </div>
 
  <!-- Logins -->

@@ -167,3 +167,17 @@ def update_user(request):
     context['form'] = form
     context['form_action'] = 'account-update-user'
     return render(request, 'home/crud_form.html', context)
+
+@login_required(login_url='account-login')
+def delete_user(request):
+
+    form = DeleteUserForm({'user':request.user.id}, user=request.user)
+
+    if form.is_valid():
+        form.cleaned_data.get('user').delete()
+        return redirect('account-home')
+
+    context = {}
+    context['form'] = form
+    context['form_action'] = 'account-delete-user'
+    return render(request, 'home/crud_form.html', context)

@@ -1,5 +1,6 @@
 keep same component open on refresh
 form error page redisplay working?
+delete entire media directory of user when they delete their account
 
 files not being deleted in media?
 

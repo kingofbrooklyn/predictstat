@@ -336,8 +336,11 @@ class RegressionXYAbstract(Base):
     MAX_LENGTH_TITLE = 20
     BLANK_TITLE = False
     HELP_TEXT_TITLE = "Title for the regression."
+    DEFAULT_TITLE = "Regression"
     title = models.CharField(max_length=MAX_LENGTH_TITLE,\
-                            blank=BLANK_TITLE)
+                            blank=BLANK_TITLE,
+                            help_text=HELP_TEXT_TITLE,
+                            default=DEFAULT_TITLE)
 
     ### x ###
     NULL_X = True

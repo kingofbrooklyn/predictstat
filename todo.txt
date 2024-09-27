@@ -1,4 +1,3 @@
-upload file without being logged in causes odd error
 files not being deleted in media
 still need to set files to None to pass validation?
 keep same component open on refresh

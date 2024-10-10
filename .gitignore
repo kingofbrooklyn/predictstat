@@ -10,3 +10,5 @@ home/static/home/jquery
 media/
 db.sqlite3
 predictstat/__pycache__
+predictstatenv/
+

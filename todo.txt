@@ -1,5 +1,5 @@
-delete entire media directory of user when they delete their account
 straighten out signals (why separate file, and lines below models?)
+update tracking ok?
 
 implement ajax:
 -keep same component open on refresh

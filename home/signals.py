@@ -1,4 +1,4 @@
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch.dispatcher import receiver
 from .models import DatasetUpload,\
                     PredictionOrdinaryLeastSquares, PredictionRidgeRegression,\
@@ -14,3 +14,14 @@ def post_delete_delete_file_fields(sender, instance, **kwargs):
         if field.get_internal_type() == 'FileField':
             if getattr(instance, field.name):
                 getattr(instance, field.name).delete(False) # Pass false so FileField doesn't save the model.
+
+"""
+When DatasetUpload is saved, ensure the related Dataset.df_file filepath is updated.
+"""
+@receiver(post_save, sender=DatasetUpload)
+def post_save_updates(sender, instance, **kwargs):
+        # Ensure dependent components are shown as potentially old versions
+        instance.dataset.updated = False
+        # Ensure path to file is updated on dataset
+        instance.dataset.df_file = instance.df_file.path
+        instance.dataset.save()

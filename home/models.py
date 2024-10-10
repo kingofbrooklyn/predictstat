@@ -154,14 +154,6 @@ class DatasetUpload(Base):
 
     def __str__(self):
         return str(self.title)
-        
-    @staticmethod
-    def post_save_updates(sender, instance, **kwargs):
-        # Ensure dependent components are shown as potentially old versions
-        instance.dataset.updated = False
-        # Ensure path to file is updated on dataset
-        instance.dataset.df_file = instance.df_file.path
-        instance.dataset.save()
 
     def read_uploaded_file(df_file):
         if isinstance(df_file, InMemoryUploadedFile) or isinstance(df_file, File):
@@ -192,8 +184,6 @@ class DatasetUpload(Base):
                                     on_delete=models.CASCADE,\
                                     blank=True,\
                                     related_name=RELATED_NAME_DATASET)
-
-models.signals.post_save.connect(DatasetUpload.post_save_updates, sender=DatasetUpload)
 
 ### Prediction ###
 

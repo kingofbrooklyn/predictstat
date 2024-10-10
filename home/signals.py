@@ -6,7 +6,8 @@ from .models import DatasetUpload,\
                     ScatterMatrix, Histogram
 
 """
-Whenever a record is deleted, check if it has any file fields associated, and delete the files from storage.
+Whenever a record is deleted, check if it has any file fields associated, 
+and delete the files from storage.
 """
 @receiver(post_delete)
 def post_delete_delete_file_fields(sender, instance, **kwargs):
@@ -16,12 +17,22 @@ def post_delete_delete_file_fields(sender, instance, **kwargs):
                 getattr(instance, field.name).delete(False) # Pass false so FileField doesn't save the model.
 
 """
-When DatasetUpload is saved, ensure the related Dataset.df_file filepath is updated.
+When a DatasetUpload is saved, modify the related Dataset so that
+-updated is False
+-the df_file field is set to the path string
 """
 @receiver(post_save, sender=DatasetUpload)
 def post_save_updates(sender, instance, **kwargs):
-        # Ensure dependent components are shown as potentially old versions
-        instance.dataset.updated = False
-        # Ensure path to file is updated on dataset
-        instance.dataset.df_file = instance.df_file.path
-        instance.dataset.save()
+    # Ensure dependent components are shown as potentially old versions
+    instance.dataset.updated = False
+    # Ensure path to file is updated on dataset
+    instance.dataset.df_file = instance.df_file.path
+    instance.dataset.save()
+
+"""
+Ensure path to file is updated on Dataset for predicted data
+"""
+@receiver(post_save, sender=[PredictionOrdinaryLeastSquares,PredictionRidgeRegression])
+def post_save_updates(sender, instance, **kwargs):
+    instance.y.df_file = instance.y_file.path
+    instance.y.save()

@@ -194,12 +194,6 @@ class PredictionXYAbstract(Base):
 
     def __str__(self):
         return str(self.title)
-        
-    @staticmethod
-    def post_save_updates(sender, instance, **kwargs):
-        # Ensure path to file is updated on dataset
-        instance.y.df_file = instance.y_file.path
-        instance.y.save()
 
     ### title ###
     MAX_LENGTH_TITLE = 50
@@ -256,8 +250,6 @@ class PredictionOrdinaryLeastSquares(PredictionXYAbstract):
                         on_delete=ON_DELETE_REGRESSION,
                         related_name=RELATED_NAME_REGRESSION)
 
-models.signals.post_save.connect(PredictionOrdinaryLeastSquares.post_save_updates, sender=PredictionOrdinaryLeastSquares)
-
 class PredictionRidgeRegression(PredictionXYAbstract):
 
     name_singular = "Prediction - Ridge Regression"
@@ -271,8 +263,6 @@ class PredictionRidgeRegression(PredictionXYAbstract):
                                 null=NULL_REGRESSION,
                                 on_delete=ON_DELETE_REGRESSION,
                                 related_name=RELATED_NAME_REGRESSION)
-
-models.signals.post_save.connect(PredictionRidgeRegression.post_save_updates, sender=PredictionRidgeRegression)
 
 ### Regression ###
 

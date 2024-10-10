@@ -154,14 +154,6 @@ class DatasetUpload(Base):
 
     def __str__(self):
         return str(self.title)
-        
-    @staticmethod
-    def post_save_updates(sender, instance, **kwargs):
-        # Ensure dependent components are shown as potentially old versions
-        instance.dataset.updated = False
-        # Ensure path to file is updated on dataset
-        instance.dataset.df_file = instance.df_file.path
-        instance.dataset.save()
 
     def read_uploaded_file(df_file):
         if isinstance(df_file, InMemoryUploadedFile) or isinstance(df_file, File):
@@ -193,8 +185,6 @@ class DatasetUpload(Base):
                                     blank=True,\
                                     related_name=RELATED_NAME_DATASET)
 
-models.signals.post_save.connect(DatasetUpload.post_save_updates, sender=DatasetUpload)
-
 ### Prediction ###
 
 class PredictionXYAbstract(Base):
@@ -204,12 +194,6 @@ class PredictionXYAbstract(Base):
 
     def __str__(self):
         return str(self.title)
-        
-    @staticmethod
-    def post_save_updates(sender, instance, **kwargs):
-        # Ensure path to file is updated on dataset
-        instance.y.df_file = instance.y_file.path
-        instance.y.save()
 
     ### title ###
     MAX_LENGTH_TITLE = 50
@@ -266,8 +250,6 @@ class PredictionOrdinaryLeastSquares(PredictionXYAbstract):
                         on_delete=ON_DELETE_REGRESSION,
                         related_name=RELATED_NAME_REGRESSION)
 
-models.signals.post_save.connect(PredictionOrdinaryLeastSquares.post_save_updates, sender=PredictionOrdinaryLeastSquares)
-
 class PredictionRidgeRegression(PredictionXYAbstract):
 
     name_singular = "Prediction - Ridge Regression"
@@ -281,8 +263,6 @@ class PredictionRidgeRegression(PredictionXYAbstract):
                                 null=NULL_REGRESSION,
                                 on_delete=ON_DELETE_REGRESSION,
                                 related_name=RELATED_NAME_REGRESSION)
-
-models.signals.post_save.connect(PredictionRidgeRegression.post_save_updates, sender=PredictionRidgeRegression)
 
 ### Regression ###
 
